@@ -37,11 +37,15 @@ function LoginPage(props) {
                 }
             })
     }
+    const onClick = () => {
+        navigate('/register')
+    }
 
    return (
+       <>
     <div style={{
         display: 'flex', justifyContent: 'center', alignItems: 'center'
-        , width: '100%', height: '100vh'
+        , width: '100%', height: '90vh'
     }}>
         <form style={{display: 'flex', flexDirection: 'column'}}
             onSubmit={onSubmitHandler}
@@ -54,8 +58,16 @@ function LoginPage(props) {
             <button>
                 Login
             </button>
+            <br />
         </form>
     </div>
+    <div style={{display: 'flex', flexDirection: 'column',
+    justifyContent: 'flex-start', alignItems:'center'}}>
+    <button  onClick={onClick}>
+                회원가입
+        </button>
+    </div>
+    </>
    )
 }
 
