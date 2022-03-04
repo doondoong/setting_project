@@ -5,6 +5,26 @@ const { User } = require('./models/User')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
+
+// 소켓통신을 위함
+const http = require('http')
+const path = require('path')
+const chatServer = http.createServer(server)
+const socketIO = require('socket.io')
+const moment = require('moment')
+const io = socketIO(chatServer);
+server.use(express.static(path.join(__dirname, 'src')))
+io.on('connection',(socket) => {
+    socket.on('chatting',(data) => {
+        console.log(data)
+        const {name,msg} = data;
+        io.emit('chatting',{
+            name,
+            msg,
+            time: moment(new Date()).format("h:mm:ss A")
+        })
+    })
+})
 // const run = require('./login.js')
 // const {run} = require('./login')
 //.env 파일에서 직접 path값을 받아오기 {아래의 코드를 사용한다면 process.env.MONGODB_URL 로 사용, variables.env파일 참조}

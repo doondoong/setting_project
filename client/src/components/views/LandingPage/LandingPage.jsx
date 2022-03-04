@@ -3,16 +3,23 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css'
 import CHATTING from '../chatting'
+import {chattingWindow} from '../../../_action/user_action'
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 function LandingPage() {
-
+    // const {loading, data, error, view : reducerView} = useSelector((state)=>state.user);
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
+
     const [view, setView] = useState(false)
-    useEffect(() => {
-        axios.get('/api/hello')
-            .then(response => { console.log(response) })
-    }, [])
+
+    // useEffect(() => {
+    //     axios.get('/api/hello')
+    //         .then(response => { console.log(response) })
+    // }, [])
 
     const onClickHandler = () => {
         axios.get('/api/user/logout')
@@ -25,23 +32,29 @@ function LandingPage() {
             })
         }
 
-    const gochat = () => {
-        setView(!view)
-    }
+    const onClickView = () => {   
+        const i = dispatch(chattingWindow(view))
+            if(i.view) {
+                setView(false)
+            } else {
+                setView(true)
+            }
+    } 
 
    return (
        <div style={{
-           display: 'flex', justifyContent: 'center', alignItems: 'center'
-           , width: '100%', height: '100vh'
+           display: 'flex', flexDirection: 'column' ,justifyContent: 'center', alignItems: 'center'
+           , width: '100%', height: '80vh'
        }}>
+           <button onClick={onClickView} style={{marginBottom: '100px'}}>
+                {view ? '채팅 종료' : '채팅 접속'}
+           </button>
            <h2>시작 페이지</h2>
 
            <button onClick={onClickHandler}>
                로그아웃
            </button>
-           <button onClick={gochat}>
-                {view ? '채팅 종료' : '채팅 접속'}
-           </button>
+           
            {view ? <CHATTING /> : null}
        </div>
    )

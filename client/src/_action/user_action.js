@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LOGIN_USER, REGISTER_USER} from './types'
+import {LOGIN_USER, REGISTER_USER, CHATTING_WINDOW} from './types'
 
 export function loginUser(dataTosubmit) {
 
@@ -22,3 +22,10 @@ export function registerUser(dataTosubmit) {
         payload: request
     }
 }
+
+export function chattingWindow(view) {
+    return {
+      type: CHATTING_WINDOW,
+      view: view
+    }
+  }
