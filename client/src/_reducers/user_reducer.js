@@ -1,10 +1,10 @@
-import {LOGIN_USER, REGISTER_USER, CHATTING_WINDOW} from '../_action/types'
+import {LOGIN_USER, REGISTER_USER, CHATTING_WINDOW, AUTH_USER} from '../_action/types'
 
-const initialState = {
-    loginSuccess : false,
-    register : false,
-    view : false
-}
+// const initialState = {
+//     loginSuccess : false,
+//     register : false,
+//     view : false
+// }
 
 export default function  (state = {} , action) {
     switch (action.type) {
@@ -12,13 +12,14 @@ export default function  (state = {} , action) {
             return { ...state, loginSuccess: action.payload }
             break;
         case REGISTER_USER:
-            return {...state, register: action.payload}
+            return { ...state, register: action.payload }
             break;
-        case CHATTING_WINDOW:{
-            console.log(action.view)
+        case AUTH_USER:
+            return { ...state, userData: action.payload }
+            break;
+        case CHATTING_WINDOW:
             return {...state, view: action.view}
             break;
-        }
         default:
             return state;
     }

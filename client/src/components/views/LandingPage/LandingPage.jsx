@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './LandingPage.css'
 import CHATTING from '../chatting'
 import {chattingWindow} from '../../../_action/user_action'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 

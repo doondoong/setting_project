@@ -113,6 +113,7 @@ server.post('/api/user/login', (req,res) => {
 })
 
 // 미들웨어 auth 추가 //서버 요청전에 처리해줄 내용
+// 1은 관리자 ,0은 회원
 server.get('/api/user/auth', auth ,(req,res)=>{
 
     // 여기까지 왔다는 것은 Authentication이 true라는 것
