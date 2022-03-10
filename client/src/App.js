@@ -2,7 +2,8 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Routes
+  Routes,
+  useNavigate
 } from "react-router-dom";
 
 import LandingPage from './components/views/LandingPage/LandingPage'
@@ -10,11 +11,12 @@ import LoginPage from './components/views/LoginPage/LoginPage'
 import RegisterPage from './components/views/RegisterPage/RegisterPage'
 import Auth from './hoc/auth'
 
-function App() {
 
+
+function App() {
   const AuthLandingPage = Auth(LandingPage, null)
-  const AuthLoginPage = Auth(LoginPage, null)
-  const AuthRegisterPage = Auth(RegisterPage, null)
+  const AuthLoginPage = Auth(LoginPage, false)
+  const AuthRegisterPage = Auth(RegisterPage, false)
 
   return (
     <Router>

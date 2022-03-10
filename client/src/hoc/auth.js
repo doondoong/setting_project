@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import {auth} from '../_action/user_action'
+import { auth } from '../_action/user_action'
 
 export default function(SpecificComponent, option, adminRoute = null) {
-    const navigate = useNavigate
+
     // option
     // null => 아무나
     // true => 로그인한 유저만
@@ -13,14 +13,15 @@ export default function(SpecificComponent, option, adminRoute = null) {
     //adminRoute
     // null(기본값) => 
     function AuthenticationCheck(props) {
+        const navigate = useNavigate()
         const dispatch = useDispatch();
         useEffect(()=>{
             dispatch(auth()).then(response => {
-                // console.log(response)
+                console.log(response)
                 //로그인 하지 않은 상태
                 if(!response.payload.isAuth){
                     //로그인한 유저만 접근가능한 곳이라면 로그인페이지로 보내라
-                    if(option) {
+                    if(!!option) {
                         navigate('/login')
                     }
                 } else {
@@ -37,7 +38,7 @@ export default function(SpecificComponent, option, adminRoute = null) {
                 }
             })
         },[])
-        
+
         return (
             <SpecificComponent />
         )
