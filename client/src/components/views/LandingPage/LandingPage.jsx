@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css'
 import CHATTING from '../chatting'
-import {chattingWindow} from '../../../_action/user_action'
+import { chattingWindow } from '../../../_action/user_action'
 import { useDispatch } from 'react-redux';
 
 

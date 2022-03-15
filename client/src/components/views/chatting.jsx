@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import '../../utils/chatting/chat.css'
+import React, { useEffect, useRef, useState } from "react"
+import io from 'socket.io-client';
+import TextField from "@material-ui/core/TextField"
+import './chatting.css'
 
-// const socket = io();
 // const nickname = document.querySelector('#nickname')
 // const chatList = document.querySelector('.chatting-list')
 // const chatInput = document.querySelector('.chatting-input')
@@ -67,28 +68,78 @@ import '../../utils/chatting/chat.css'
 //     }
 // }
 
-function chatting() {
+function Chatting() {
+  const [data, setData] = useState({msg: '', name: ''})
+  const [chat, setChat] = useState([])
+
+  const socketRef = useRef()
+
+  useEffect(() => {
+    socketRef.current = io.connect("http://localhost:7001",{
+      cors: {origin: '*'}, 
+      path: '/socket.io'
+    })
+    socketRef.current.on("chatting", ({name, msg}) => {
+        // const {name, msg} = data
+      setChat([ ...chat, { name, msg } ])
+        })
+        return () => socketRef.current.disconnect()
+      },[ chat ]
+    )
+
+  const onTextChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+
+  const onMessageSubmit = (e) => {
+	  const { name, msg } = data
+    console.log(data)
+    //서버로 전송 d1:서버로보낼 이벤트명, d2:데이터
+		socketRef.current.emit("chatting", { msg, name })
+		e.preventDefault()  // 리렌더 방지
+		setData({ msg: "", name })
+	}
+
+	const renderChat = () => {
+		return chat.map(({ name, msg }, index) => (
+			<div key={index}>
+				<h3>
+					{name}: <span>{msg}</span>
+				</h3>
+			</div>
+		))
+	}
    return (
 
-    <div class="wrapper">
-        <div class="user-container">
-            <label for="nickname">대화명</label>
-            <input type="text" id="nickname" />
-        </div>
-        <div class="display-container">
-            <ul class="chatting-list">
-                
-            </ul>
-        </div>
-        <div class="input-container">
-            <span>
-            <input type="text" class="chatting-input" />
-            <button class="send-button">전송</button>
-            </span>
+    <div className="card">
+			<form onSubmit={onMessageSubmit}>
+        <h1>메세지</h1>
+          <div className='name-field'>
+            <TextField 
+            name="name" 
+            onChange={(e) => onTextChange(e)} 
+            value={data.name} 
+            label="Name" />
+            </div>
+            <div>
+              <TextField
+                name="msg"
+                onChange={(e) => onTextChange(e)}
+                value={data.msg}
+                id="outlined-multiline-static"
+                variant="outlined"
+                label="Message"
+              />
+            </div>
+            <button>전송</button>
+      </form>
+        <div className="render-chat">
+          <h1>내용</h1>
+            {renderChat()}
         </div>
     </div>
 
    )
 }
 
-export default chatting
+export default Chatting

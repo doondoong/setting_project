@@ -1,29 +1,46 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const server = express();
+
 const { User } = require('./models/User')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
 
 // 소켓통신을 위함
-const http = require('http')
+const http = require('http').Server(server)
 const path = require('path')
-const chatServer = http.createServer(server)
-const socketIO = require('socket.io')
+const cors = require('cors')
+server.use(cors())
+const io = require('socket.io')(http, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    },
+    path: '/socket.io'
+  });
 const moment = require('moment')
-const io = socketIO(chatServer);
-server.use(express.static(path.join(__dirname, 'src')))
-io.on('connection',(socket) => {
-    socket.on('chatting',(data) => {
-        console.log(data)
-        const {name,msg} = data;
+
+server.use(express.static
+    (path.join(__dirname, '..', 'client', 'src')))
+
+io.on('connection', (socket) => {
+    socket.on('chatting',({msg, name}) => {
+        // console.log(data)
+        // const  = data;
         io.emit('chatting',{
             name,
             msg,
-            time: moment(new Date()).format("h:mm:ss A")
+            // time: moment(new Date()).format("h:mm:ss A")
         })
     })
+    socket.on('disconnect', () => {
+        console.log('연결이 끊어졌습니다.');
+    })
+})
+
+http.listen(7001, ()=> {
+    console.log('listening on :7001')
 })
 // const run = require('./login.js')
 // const {run} = require('./login')
@@ -47,8 +64,8 @@ server.get('/api/hello',(req,res) => {
    res.send('안녕')
 })
 
-server.get('/',(req,res)=>{
-    res.send('안녕')
+// server.get('/',(req,res)=>{
+//     res.send('안녕')
     // res.redirect('https://mrlogin.io/auth/kakao/handler')
     // res.sendFile(__dirname + '/index.html')
     // const newUser = new User();
@@ -66,7 +83,7 @@ server.get('/',(req,res)=>{
     //         })
     //         console.log(err,'error')
     //     })
-})
+// })
 
 
 server.post('/api/user/register', (req,res) => {
