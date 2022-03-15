@@ -10,7 +10,7 @@
     "backend": "yarn nodemon server/index.js",
     "build": "babel src -d lib",
     "dev": "concurrently \"nodemon ./server/server.jsx\" \"npm run start --prefix ./client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd ../client install && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "engine": {
     "node": "12.21.0",
