@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "type": "commonjs",
+  "keywords": [],
   "scripts": {
     "start": "yarn node server/server.jsx",
     "backend": "yarn nodemon server/index.js",
     "dev": "concurrently \"nodemon ./server/server.jsx\" \"npm run start --prefix ./client\"",
+    "build": "webpack",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix client && yarn build --prefix client"
   },
   "engine": {
