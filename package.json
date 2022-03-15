@@ -5,7 +5,13 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "dev": "concurrently \"nodemon ./server/server.jsx\" \"npm run start --prefix ./client\""
+    "start": "",
+    "dev": "concurrently \"nodemon ./server/server.jsx\" \"npm run start --prefix ./client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix client && yarn run build --prefix client"
+  },
+  "engine": {
+    "node": "12.21.0",
+    "yarn": "1.22.17"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

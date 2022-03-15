@@ -79,9 +79,9 @@ function Chatting() {
       cors: {origin: '*'}, 
       path: '/socket.io'
     })
-    socketRef.current.on("chatting", ({name, msg}) => {
+    socketRef.current.on("chatting", ({name, msg, time}) => {
         // const {name, msg} = data
-      setChat([ ...chat, { name, msg } ])
+      setChat([ ...chat, { name, msg, time } ])
         })
         return () => socketRef.current.disconnect()
       },[ chat ]
@@ -93,19 +93,21 @@ function Chatting() {
 
   const onMessageSubmit = (e) => {
 	  const { name, msg } = data
-    console.log(data)
+    // console.log(data)
     //서버로 전송 d1:서버로보낼 이벤트명, d2:데이터
-		socketRef.current.emit("chatting", { msg, name })
+		socketRef.current.emit("chatting", { name, msg})
 		e.preventDefault()  // 리렌더 방지
 		setData({ msg: "", name })
 	}
 
 	const renderChat = () => {
-		return chat.map(({ name, msg }, index) => (
+    // const {name, msg} = data
+		return chat.map(({name, msg, time}, index) => (
 			<div key={index}>
 				<h3>
-					{name}: <span>{msg}</span>
+					{name}: <span>{msg}</span> 
 				</h3>
+        <h5>{time}</h5>
 			</div>
 		))
 	}

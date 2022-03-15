@@ -21,6 +21,10 @@
     "socket.io-client": "^4.4.1",
     "web-vitals": "^2.1.0"
   },
+  "engine": {
+    "node": "12.21.0",
+    "yarn": "1.22.17"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

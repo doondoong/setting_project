@@ -7,9 +7,18 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
 
+if(process.env.NODE_ENV === 'production') {
+    server.use(express.static('client/build'));
+    server.get('*', (req,res) => {
+        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
+    })
+}
+const path = require('path')
+server.use(express.static
+    (path.join(__dirname, '..', 'client', 'src')))
 // 소켓통신을 위함
 const http = require('http').Server(server)
-const path = require('path')
+
 const cors = require('cors')
 server.use(cors())
 const io = require('socket.io')(http, {
@@ -21,17 +30,14 @@ const io = require('socket.io')(http, {
   });
 const moment = require('moment')
 
-server.use(express.static
-    (path.join(__dirname, '..', 'client', 'src')))
-
 io.on('connection', (socket) => {
-    socket.on('chatting',({msg, name}) => {
+    socket.on('chatting',({name, msg}) => {
         // console.log(data)
-        // const  = data;
+        // const {name, msg} = data;
         io.emit('chatting',{
             name,
             msg,
-            // time: moment(new Date()).format("h:mm:ss A")
+            time: moment(new Date()).format("h:mm:ss A")
         })
     })
     socket.on('disconnect', () => {
