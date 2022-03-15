@@ -8,7 +8,7 @@
     "start": "yarn node server/server.jsx",
     "backend": "yarn nodemon server/index.js",
     "dev": "concurrently \"nodemon ./server/server.jsx\" \"npm run start --prefix ./client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix client && yarn build --prefix client"
   },
   "engine": {
     "node": "12.21.0",
