@@ -32,11 +32,10 @@ const io = require('socket.io')(http, {
 const moment = require('moment')
 
 io.on('connection', (socket) => {
-    socket.on('chatting',({name, msg}) => {
+    socket.on('chatting',({msg}) => {
         // console.log(data)
         // const {name, msg} = data;
         io.emit('chatting',{
-            name,
             msg,
             time: moment(new Date()).format("h:mm:ss A")
         })

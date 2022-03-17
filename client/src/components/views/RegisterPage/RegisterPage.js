@@ -1,4 +1,3 @@
-import { Axios } from 'axios';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,6 @@ import { registerUser } from '../../../_action/user_action'
 function RegisterPage() {
 
     const dispatch = useDispatch()
-
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
@@ -55,7 +53,9 @@ function RegisterPage() {
                 }
             })
     }
-
+    const goLogin = () => {
+        navigate('/login')
+    }
    return (
     <div style={{
         display: 'flex', justifyContent: 'center', alignItems: 'center'
@@ -92,6 +92,13 @@ function RegisterPage() {
             <button>
                 회원가입
             </button>
+            <br />
+            <br />
+            <input 
+            type={'button'}
+            onClick={goLogin}
+            value={'goLogin'}>
+            </input>
         </form>
     </div>
    )

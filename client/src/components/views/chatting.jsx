@@ -68,20 +68,19 @@ import './chatting.css'
 //     }
 // }
 
-function Chatting() {
-  const [data, setData] = useState({msg: '', name: ''})
+function Chatting({nickName}) {
+  const [data, setData] = useState({msg: ''})
   const [chat, setChat] = useState([])
 
   const socketRef = useRef()
-
   useEffect(() => {
     socketRef.current = io.connect("http://localhost:7001",{
       cors: {origin: '*'}, 
       path: '/socket.io'
     })
-    socketRef.current.on("chatting", ({name, msg, time}) => {
+    socketRef.current.on("chatting", ({msg, time}) => {
         // const {name, msg} = data
-      setChat([ ...chat, { name, msg, time } ])
+      setChat([ ...chat, {msg, time } ])
         })
         return () => socketRef.current.disconnect()
       },[ chat ]
@@ -95,17 +94,17 @@ function Chatting() {
 	  const { name, msg } = data
     // console.log(data)
     //서버로 전송 d1:서버로보낼 이벤트명, d2:데이터
-		socketRef.current.emit("chatting", { name, msg})
+		socketRef.current.emit("chatting", {msg})
 		e.preventDefault()  // 리렌더 방지
 		setData({ msg: "", name })
 	}
 
 	const renderChat = () => {
     // const {name, msg} = data
-		return chat.map(({name, msg, time}, index) => (
+		return chat.map(({msg, time}, index) => (
 			<div key={index}>
 				<h3>
-					{name}: <span>{msg}</span> 
+					{nickName}: <span>{msg}</span> 
 				</h3>
         <h5>{time}</h5>
 			</div>
@@ -118,9 +117,9 @@ function Chatting() {
         <h1>메세지</h1>
           <div className='name-field'>
             <TextField 
-            name="name" 
-            onChange={(e) => onTextChange(e)} 
-            value={data.name} 
+            name="nickName" 
+            // onChange={(e) => onTextChange(e)} 
+            value={nickName} 
             label="Name" />
             </div>
             <div>
@@ -131,6 +130,7 @@ function Chatting() {
                 id="outlined-multiline-static"
                 variant="outlined"
                 label="Message"
+                
               />
             </div>
             <button>전송</button>

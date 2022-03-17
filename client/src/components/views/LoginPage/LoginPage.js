@@ -5,9 +5,7 @@ import { loginUser } from '../../../_action/user_action'
 
 function LoginPage(props) {
     const dispatch = useDispatch()
-
     const navigate = useNavigate()
-
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 

@@ -3,24 +3,23 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css'
 import CHATTING from '../chatting'
-import { chattingWindow } from '../../../_action/user_action'
-import { useDispatch } from 'react-redux';
+// import { chattingWindow } from '../../../_action/user_action'
+// import { useDispatch } from 'react-redux';
 
 
 
-function LandingPage() {
+function LandingPage({view, onClickView, nickName}) {
     // const {loading, data, error, view : reducerView} = useSelector((state)=>state.user);
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const navigate = useNavigate()
 
-
-    const [view, setView] = useState(false)
+    // const [chatView, setChatView] = useState(false)
 
     // useEffect(() => {
     //     axios.get('/api/hello')
     //         .then(response => { console.log(response) })
     // }, [])
-
+console.log('랜딩페이지 적용',view)
     const onClickHandler = () => {
         axios.get('/api/user/logout')
             .then(response => {
@@ -31,15 +30,6 @@ function LandingPage() {
                 }
             })
         }
-
-    const onClickView = () => {   
-        const i = dispatch(chattingWindow(view))
-            if(i.view) {
-                setView(false)
-            } else {
-                setView(true)
-            }
-    } 
 
    return (
        <div style={{
@@ -55,7 +45,7 @@ function LandingPage() {
                로그아웃
            </button>
            
-           {view ? <CHATTING /> : null}
+           {view ? <CHATTING nickName={nickName} /> : null}
        </div>
    )
 }

@@ -2,7 +2,6 @@ import axios from 'axios';
 import {LOGIN_USER, REGISTER_USER, CHATTING_WINDOW, AUTH_USER} from './types'
 
 export function loginUser(dataTosubmit) {
-
     const request = axios.post('/api/user/login', dataTosubmit)
     .then(response => response.data)
 
@@ -34,10 +33,8 @@ export function auth() {
     }
 }
 
-export function chattingWindow(view) {
-    return {
-      type: CHATTING_WINDOW,
-      view: view
-    }
-  }
+export const chattingWindow = (myView) => ({
+    type: CHATTING_WINDOW,
+    view: !myView.view
+})
 
