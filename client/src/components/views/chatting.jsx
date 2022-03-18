@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import io from 'socket.io-client';
 import TextField from "@material-ui/core/TextField"
 import './chatting.css'
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 
 // const nickname = document.querySelector('#nickname')
 // const chatList = document.querySelector('.chatting-list')
@@ -110,6 +111,10 @@ function Chatting({nickName}) {
 			</div>
 		))
 	}
+
+  const myIcon = <BrightnessHighIcon />
+
+
    return (
 
     <div className="card">
@@ -118,10 +123,12 @@ function Chatting({nickName}) {
           <div className='name-field'>
             <TextField 
             name="nickName" 
-            // onChange={(e) => onTextChange(e)} 
-            value={nickName} 
-            label="Name" />
+            // onChange={(e) => onTextChange(e)}
+            value={myIcon} 
+            label="Name" >
+            </TextField> 
             </div>
+            
             <div>
               <TextField
                 name="msg"
