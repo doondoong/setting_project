@@ -13,12 +13,10 @@ if(process.env.NODE_ENV === 'production') {
     server.get('*', (req,res) => {
         res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
     })
-} else {
-    server.use(express.static
-        (path.join(__dirname, '..', 'client', 'src')))
 }
 
-
+server.use(express.static
+    (path.join(__dirname, '..', 'client', 'src')))
 
 // 소켓통신을 위함
 const http = require('http').Server(server)
