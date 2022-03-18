@@ -8,15 +8,17 @@ const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
 
 if(process.env.NODE_ENV === 'production') {
-    server.use(express.static('../client/build'));
+    server.use(express.static('client/build'));
     server.get('*', (req,res) => {
         res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
     })
+} else {
+    server.use(express.static
+        (path.join(__dirname, '..', 'client', 'src')))
 }
 
 const path = require('path')
-server.use(express.static
-    (path.join(__dirname, '..', 'client', 'src')))
+
 // 소켓통신을 위함
 const http = require('http').Server(server)
 

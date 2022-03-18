@@ -7,7 +7,7 @@
   "keywords": [],
   "scripts": {
     "start": "yarn node server/server.jsx",
-    "backend": "yarn nodemon server/index.js",
+    "backend": "yarn node server/index.js",
     "dev": "concurrently \"nodemon ./server/server.jsx\" \"npm run start --prefix ./client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install && yarn --cwd ./client install && yarn --cwd ./client run build"
   },
