@@ -10,7 +10,7 @@
     "backend": "yarn node server/index.js",
     "build": "webpack",
     "dev": "concurrently \"nodemon ./server/server.jsx\" \"yarn --cwd ./client start\"",
-    "heroku-postbuild": "yarn install && cd client/ && yarn install && yarn build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "engine": {
     "node": "12.21.0",
