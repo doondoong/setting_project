@@ -4,40 +4,40 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = function(app) {
 
 
-    // app.use(
-    //   createProxyMiddleware('/api',{
-    //     target: 'https://catting-system.herokuapp.com:7000',
-    //     changeOrigin: true,
-    //   }),
+    app.use(
+      createProxyMiddleware('/api',{
+        target: 'https://catting-system1.herokuapp.com:7000',
+        changeOrigin: true,
+      }),
       
-    // );
+    );
   
-    // app.use(
-    //   createProxyMiddleware('/socket.io', {
-    //     target: 'https://catting-system.herokuapp.com:7001',
-    //     changeOrigin: true,
-    //     // ws: true, 
-    //     logLevel: 'debug',
-    //   })
-    // )
+    app.use(
+      createProxyMiddleware('/socket.io', {
+        target: 'https://catting-system1.herokuapp.com:7001',
+        changeOrigin: true,
+        // ws: true, 
+        logLevel: 'debug',
+      })
+    )
 
 
 
-  app.use(
-    createProxyMiddleware('/api',{
-      target: 'http://localhost:7000',
-      changeOrigin: true,
-    }),
+  // app.use(
+  //   createProxyMiddleware('/api',{
+  //     target: 'http://localhost:7000',
+  //     changeOrigin: true,
+  //   }),
     
-  );
+  // );
 
-  app.use(
-    createProxyMiddleware('/socket.io', {
-      target: 'http://localhost:7001',
-      changeOrigin: true,
-      // ws: true, 
-      logLevel: 'debug',
-    })
-  )
+  // app.use(
+  //   createProxyMiddleware('/socket.io', {
+  //     target: 'http://localhost:7001',
+  //     changeOrigin: true,
+  //     // ws: true, 
+  //     logLevel: 'debug',
+  //   })
+  // )
 
 };
