@@ -6,6 +6,7 @@ const { User } = require('./models/User')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
+const path = require('path')
 
 if(process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
@@ -17,7 +18,7 @@ if(process.env.NODE_ENV === 'production') {
         (path.join(__dirname, '..', 'client', 'src')))
 }
 
-const path = require('path')
+
 
 // 소켓통신을 위함
 const http = require('http').Server(server)
