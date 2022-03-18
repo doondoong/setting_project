@@ -8,8 +8,9 @@
   "scripts": {
     "start": "yarn node server/server.jsx",
     "backend": "yarn node server/index.js",
+    "build": "webpack",
     "dev": "concurrently \"nodemon ./server/server.jsx\" \"yarn --cwd ./client start\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install && yarn --cwd ./client install && yarn --cwd ./client run build"
+    "heroku-postbuild": "yarn --cwd ./client install && yarn --cwd ./client run build"
   },
   "engine": {
     "node": "12.21.0",
