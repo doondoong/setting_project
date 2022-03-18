@@ -14,7 +14,8 @@
   },
   "engine": {
     "node": "12.21.0",
-    "yarn": "1.22.17"
+    "yarn": "1.22.17",
+    "npm": "8.1.2"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
