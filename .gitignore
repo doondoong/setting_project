@@ -1,5 +1,13 @@
 
+node_modules
+
+
 variables.env
 
+
 dev.js
-node_modules
+key.js
+login.js
+mylist.text
+chromedriver
+
