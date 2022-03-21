@@ -174,6 +174,7 @@ server.get('/api/user/logout', auth, (req,res) => {
 })
 
 const port = process.env.PORT || 7000
+console.log('아놔',port)
 server.listen(port,(err)=>{
     if(err) {
         return console.log(err,'server err!!!!');
