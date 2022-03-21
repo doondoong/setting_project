@@ -1,13 +1,8 @@
-
 node_modules
-
 
 variables.env
 
-
-dev.js
-key.js
-login.js
-mylist.text
-chromedriver
-
+/server/config/dev.js
+/server/login.js
+/server/chromedriver
+/server/mylist.text
