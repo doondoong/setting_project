@@ -11,7 +11,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
 const path = require('path')
-
+console.log("Database_URL", process.env.DATABASE_URL);
 if(process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
     server.get('*', (req,res) => {
