@@ -17,10 +17,11 @@ if(process.env.NODE_ENV === 'production') {
     server.get('*', (req,res) => {
         res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
     })
+}  else {
+    server.use(express.static
+        (path.join(__dirname, '..', 'client', 'src')))
 }
 
-server.use(express.static
-    (path.join(__dirname, '..', 'client', 'src')))
 
 // 소켓통신을 위함
 const http = require('http').Server(server)
@@ -49,8 +50,8 @@ io.on('connection', (socket) => {
         console.log('연결이 끊어졌습니다.');
     })
 })
-
-http.listen(7001, ()=> {
+const wsport = process.env.PORT || 7001
+http.listen(wsport, ()=> {
     console.log('listening on :7001')
 })
 // const run = require('./login.js')
@@ -171,8 +172,8 @@ server.get('/api/user/logout', auth, (req,res) => {
     })
 })
 
-
-server.listen(7000,(err)=>{
+const port = process.env.PORT || 7000
+server.listen(port,(err)=>{
     if(err) {
         return console.log(err,'server err!!!!');
     }
