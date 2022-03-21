@@ -10,22 +10,6 @@ const path = require('path')
 
 const PORT = process.env.PORT || 7000
 
-// 서버 생성
-server.listen(PORT,(err)=>{
-    if(err) {
-        return console.log(err,'server err!!!!');
-    }
-    else {
-        mongoose.connect(config.MONGODB_URL, { useNewUrlParser:true }, (err) => {
-            if(err) {
-                console.log('몽고DB에러')
-            } else {
-                console.log('Connected to database successfully')
-            }
-        })
-    }
-});
-
 if(process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
     server.get('*', (req,res) => {
@@ -64,9 +48,9 @@ io.on('connection', (socket) => {
     })
 })
 
-// http.listen(7001, ()=> {
-//     console.log('listening on :7001')
-// })
+http.listen(7001, ()=> {
+    console.log('listening on :7001')
+})
 // const run = require('./login.js')
 // const {run} = require('./login')
 //.env 파일에서 직접 path값을 받아오기 {아래의 코드를 사용한다면 process.env.MONGODB_URL 로 사용, variables.env파일 참조}
@@ -186,3 +170,17 @@ server.get('/api/user/logout', auth, (req,res) => {
 })
 
 
+server.listen(PORT,(err)=>{
+    if(err) {
+        return console.log(err,'server err!!!!');
+    }
+    else {
+        mongoose.connect(config.MONGODB_URL, { useNewUrlParser:true }, (err) => {
+            if(err) {
+                console.log('몽고DB에러')
+            } else {
+                console.log('Connected to database successfully')
+            }
+        })
+    }
+});

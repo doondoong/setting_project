@@ -14,7 +14,7 @@ module.exports = function(app) {
   
     app.use(
       createProxyMiddleware('/socket.io', {
-        target: 'https://chatting-system-no3.herokuapp.com/',
+        target: 'https://chatting-system-no3.herokuapp.com:7001',
         changeOrigin: true,
         // ws: true, 
         logLevel: 'debug',
