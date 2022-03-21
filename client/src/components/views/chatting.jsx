@@ -69,11 +69,13 @@ import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 //     }
 // }
 
-const url = process.env.NODE_ENV === 'production' ?
-  'https://chatting-system-no3.herokuapp.com/' : 'http://localhost:7001'
+const url = 
+process.env.NODE_ENV === 'production' ?
+'https://chatting-system-no3.herokuapp.com/' :
+'http://localhost:7001'
   
 
-
+console.log('나나니',url)
 
 function Chatting({nickName}) {
   const [data, setData] = useState({msg: ''})
