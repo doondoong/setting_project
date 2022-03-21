@@ -6,7 +6,7 @@
   "type": "commonjs",
   "keywords": [],
   "scripts": {
-    "start": "yarn nodemon server/server.jsx",
+    "start": "node server/server.jsx",
     "backend": "yarn node server/index.js",
     "dev": "concurrently \"npm run start\" \"npm run start --prefix client\"",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
