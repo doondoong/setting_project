@@ -69,13 +69,19 @@ import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 //     }
 // }
 
+const url = process.env.NODE_ENV === 'production' ?
+  'https://chatting-system-no3.herokuapp.com/' : 'http://localhost:7001'
+  
+
+
+
 function Chatting({nickName}) {
   const [data, setData] = useState({msg: ''})
   const [chat, setChat] = useState([])
 
   const socketRef = useRef()
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:7001",{
+    socketRef.current = io.connect(url,{
       cors: {origin: '*'}, 
       path: '/socket.io'
     })
