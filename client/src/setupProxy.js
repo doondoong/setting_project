@@ -12,14 +12,14 @@ if(process.env.NODE_ENV === 'production') {
     
   );
 
-  // app.use(
-  //   createProxyMiddleware('/socket.io', {
-  //     target: 'https://chatting-system-no3.herokuapp.com/',
-  //     changeOrigin: true,
-  //     ws: true, 
-  //     logLevel: 'debug',
-  //   })
-  // )
+  app.use(
+    createProxyMiddleware('/socket.io', {
+      target: 'https://chatting-system-no3.herokuapp.com/',
+      changeOrigin: true,
+      ws: true, 
+      logLevel: 'debug',
+    })
+  )
 } else {
     app.use(
     createProxyMiddleware('/api',{

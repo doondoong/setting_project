@@ -79,18 +79,18 @@ function Chatting({nickName}) {
   const [chat, setChat] = useState([])
 
   const socketRef = useRef()
-  // useEffect(() => {
-  //   socketRef.current = io.connect(url,{
-  //     cors: {origin: '*'}, 
-  //     path: '/socket.io'
-  //   })
-  //   socketRef.current.on("chatting", ({msg, time}) => {
-  //       // const {name, msg} = data
-  //     setChat([ ...chat, {msg, time } ])
-  //       })
-  //       return () => socketRef.current.disconnect()
-  //     },[ chat ]
-  //   )
+  useEffect(() => {
+    socketRef.current = io.connect(url,{
+      cors: {origin: '*'}, 
+      path: '/socket.io'
+    })
+    socketRef.current.on("chatting", ({msg, time}) => {
+        // const {name, msg} = data
+      setChat([ ...chat, {msg, time } ])
+        })
+        return () => socketRef.current.disconnect()
+      },[ chat ]
+    )
 
   const onTextChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })

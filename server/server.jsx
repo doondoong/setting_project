@@ -23,37 +23,37 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 
-// // 소켓통신을 위함
-// const http = require('http').Server(server)
+// 소켓통신을 위함
+const http = require('http').Server(server)
 
-// const cors = require('cors')
-// server.use(cors())
-// const io = require('socket.io')(http, {
-//     cors: {
-//       origin: "*",
-//       methods: ["GET", "POST"]
-//     },
-//     path: '/socket.io'
-//   });
-// const moment = require('moment')
+const cors = require('cors')
+server.use(cors())
+const io = require('socket.io')(http, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    },
+    path: '/socket.io'
+  });
+const moment = require('moment')
 
-// io.on('connection', (socket) => {
-//     socket.on('chatting',({msg}) => {
-//         // console.log(data)
-//         // const {name, msg} = data;
-//         io.emit('chatting',{
-//             msg,
-//             time: moment(new Date()).format("h:mm:ss A")
-//         })
-//     })
-//     socket.on('disconnect', () => {
-//         console.log('연결이 끊어졌습니다.');
-//     })
-// })
-// const wsport = process.env.PORT || 7001
-// http.listen(wsport, ()=> {
-//     console.log('listening on :7001')
-// })
+io.on('connection', (socket) => {
+    socket.on('chatting',({msg}) => {
+        // console.log(data)
+        // const {name, msg} = data;
+        io.emit('chatting',{
+            msg,
+            time: moment(new Date()).format("h:mm:ss A")
+        })
+    })
+    socket.on('disconnect', () => {
+        console.log('연결이 끊어졌습니다.');
+    })
+})
+const wsport = process.env.PORT || 7001
+http.listen(wsport, ()=> {
+    console.log('listening on :7001')
+})
 
 
 // const run = require('./login.js')
