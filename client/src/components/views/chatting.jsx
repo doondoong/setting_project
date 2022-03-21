@@ -73,27 +73,24 @@ const url =
 process.env.NODE_ENV === 'production' ?
 'https://chatting-system-no3.herokuapp.com/' :
 'http://localhost:7001'
-  
-
-console.log('나나니',url)
 
 function Chatting({nickName}) {
   const [data, setData] = useState({msg: ''})
   const [chat, setChat] = useState([])
 
   const socketRef = useRef()
-  useEffect(() => {
-    socketRef.current = io.connect(url,{
-      cors: {origin: '*'}, 
-      path: '/socket.io'
-    })
-    socketRef.current.on("chatting", ({msg, time}) => {
-        // const {name, msg} = data
-      setChat([ ...chat, {msg, time } ])
-        })
-        return () => socketRef.current.disconnect()
-      },[ chat ]
-    )
+  // useEffect(() => {
+  //   socketRef.current = io.connect(url,{
+  //     cors: {origin: '*'}, 
+  //     path: '/socket.io'
+  //   })
+  //   socketRef.current.on("chatting", ({msg, time}) => {
+  //       // const {name, msg} = data
+  //     setChat([ ...chat, {msg, time } ])
+  //       })
+  //       return () => socketRef.current.disconnect()
+  //     },[ chat ]
+  //   )
 
   const onTextChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
