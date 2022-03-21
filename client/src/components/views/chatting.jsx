@@ -120,13 +120,14 @@ function Chatting({nickName}) {
     <div className="card">
 			<form onSubmit={onMessageSubmit}>
         <h1>메세지</h1>
-          <div className='name-field'>
-            <TextField 
+          <div className='name-field' style={{flexDirection:'row'}}>
+            {/* <TextField 
             name="nickName" 
             // onChange={(e) => onTextChange(e)}
             value={myIcon} 
             label="Name" >
-            </TextField> 
+            </TextField>  */}
+            <div>name</div><h2>{nickName}</h2>
             </div>
             
             <div>

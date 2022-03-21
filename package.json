@@ -6,7 +6,7 @@
   "type": "commonjs",
   "keywords": [],
   "scripts": {
-    "start": "yarn node server/server.jsx",
+    "start": "yarn nodemon server/server.jsx",
     "backend": "yarn node server/index.js",
     "dev": "concurrently \"npm run start\" \"npm run start --prefix client\"",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
@@ -30,6 +30,7 @@
     "nodemon": "^2.0.15",
     "react-scripts": "^5.0.0",
     "selenium-webdriver": "^4.1.1",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "ws": "^8.5.0"
   }
 }

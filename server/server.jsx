@@ -1,14 +1,16 @@
+// 서버 생성1
 const express = require('express');
-const mongoose = require('mongoose')
 const server = express();
 
+// 몽고 DB
+const mongoose = require('mongoose')
+
+// User 모델 불러오기
 const { User } = require('./models/User')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
 const path = require('path')
-
-const PORT = process.env.PORT || 7000
 
 if(process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
@@ -170,7 +172,7 @@ server.get('/api/user/logout', auth, (req,res) => {
 })
 
 
-server.listen(PORT,(err)=>{
+server.listen(7000,(err)=>{
     if(err) {
         return console.log(err,'server err!!!!');
     }
