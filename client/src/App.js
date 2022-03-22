@@ -12,7 +12,7 @@ import Auth from './hoc/auth'
 
 
 function App() {
-  const AuthLandingPage = Auth(LandingPageContainer, true)
+  const AuthLandingPage = Auth(LandingPageContainer, false)
   const AuthLoginPage = Auth(LoginPage, false)
   const AuthRegisterPage = Auth(RegisterPage, false)
 
