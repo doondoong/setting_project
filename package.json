@@ -10,7 +10,7 @@
     "server": "nodemon server/index.js",
     "client": "yarn --cwd ./client run start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "cd client && yarn install && yarn build"
+    "heroku-postbuild": "yarn --cwd ./client install && yarn --cwd ./client build"
   },
   "engine": {
     "node": "v16.13.1",
