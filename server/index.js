@@ -24,37 +24,37 @@ if(process.env.NODE_ENV === 'production') {
 
 
 
-// // 소켓통신을 위함
-// const http = require('http').Server(server)
+// 소켓통신을 위함
+const http = require('http').Server(server)
 
 const cors = require('cors')
 server.use(cors())
-// const io = require('socket.io')(http, {
-//     cors: {
-//       origin: "*",
-//       methods: ["GET", "POST"]
-//     },
-//     path: '/socket.io'
-//   });
-// const moment = require('moment')
+const io = require('socket.io')(http, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    },
+    path: '/socket.io'
+  });
+const moment = require('moment')
 
-// io.on('connection', (socket) => {
-//     socket.on('chatting',({msg}) => {
-//         // console.log(data)
-//         // const {name, msg} = data;
-//         io.emit('chatting',{
-//             msg,
-//             time: moment(new Date()).format("h:mm:ss A")
-//         })
-//     })
-//     socket.on('disconnect', () => {
-//         console.log('연결이 끊어졌습니다.');
-//     })
-// })
-// const wsport = process.env.PORT || 7001
-// http.listen(wsport, ()=> {
-//     console.log('listening on :7001')
-// })
+io.on('connection', (socket) => {
+    socket.on('chatting',({msg}) => {
+        // console.log(data)
+        // const {name, msg} = data;
+        io.emit('chatting',{
+            msg,
+            time: moment(new Date()).format("h:mm:ss A")
+        })
+    })
+    socket.on('disconnect', () => {
+        console.log('연결이 끊어졌습니다.');
+    })
+})
+const wsport = process.env.PORT || 7001
+http.listen(wsport, ()=> {
+    console.log('listening on :7001')
+})
 
 
 // const run = require('./login.js')
@@ -114,12 +114,13 @@ server.post('/api/user/register', (req,res) => {
 })
 
 server.post('/api/user/login', (req,res) => {
+    
     // 요청된 이메일이 데이터 베이스에 있는지 확인 (findOne은 몽고DB함수)
     User.findOne({ email: req.body.email }, (err, user) => {
         if(!user) {
             return res.json({ 
                 loginSuccess: false,
-                message: '가입되지 않은 이메일 주소 입니다.'
+                message: '가입되지 않은 이메일 주소 입니다.',
             })
         }
 
