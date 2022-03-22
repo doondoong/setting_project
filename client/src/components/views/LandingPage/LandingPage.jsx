@@ -20,6 +20,7 @@ function LandingPage({view, onClickView, nickName}) {
     //         .then(response => { console.log(response) })
     // }, [])
 
+    
     const onClickHandler = () => {
         axios.get('/api/user/logout')
             .then(response => {
