@@ -19,7 +19,7 @@ function LandingPage({view, onClickView, nickName}) {
     //     axios.get('/api/hello')
     //         .then(response => { console.log(response) })
     // }, [])
-console.log('랜딩페이지 적용',view)
+
     const onClickHandler = () => {
         axios.get('/api/user/logout')
             .then(response => {
