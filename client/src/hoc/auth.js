@@ -20,7 +20,7 @@ export default function(SpecificComponent, option, adminRoute = null) {
                 //로그인 하지 않은 상태
                 if(!response.payload.isAuth){
                     //로그인한 유저만 접근가능한 곳이라면 로그인페이지로 보내라
-                    if(!!option) {
+                    if(option) {
                         navigate('/login')
                     }
                 } else {
