@@ -11,16 +11,22 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
 const path = require('path')
-console.log("Database_URL", process.env.DATABASE_URL);
+
 if(process.env.NODE_ENV === 'production') {
-    server.use(express.static('client/build'));
-    server.get('*', (req,res) => {
-        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
-    })
+    server.use(express.static
+        (path.join(__dirname, "client/build")));
+    // server.get('*', (req,res) => {
+    //     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
+    // })
+    server.get("/", (req, res) => {
+        res.sendFile(path.join(__dirname, "client/build", "index.html"));
+      });
 }  else {
     server.use(express.static
         (path.join(__dirname, '..', 'client', 'src')))
 }
+
+
 
 // // 소켓통신을 위함
 // const http = require('http').Server(server)
@@ -72,10 +78,6 @@ server.use(bodyParser.urlencoded({extended: true}))
 server.use(bodyParser.json())
 // cookie 타입 분석
 server.use(cookieParser())
-
-server.get('/api/hello',(req,res) => {
-   res.send('안녕')
-})
 
 // server.get('/',(req,res)=>{
 //     res.send('안녕')

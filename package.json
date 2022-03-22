@@ -7,9 +7,10 @@
   "keywords": [],
   "scripts": {
     "start": "node server/index.js",
-    "backend": "yarn node server/index.js",
-    "dev": "concurrently \"npm run start\" \"npm run start --prefix client\"",
-    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+    "server": "nodemon server/index.js",
+    "client": "yarn --cwd ./client run start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "heroku-postbuild": "cd client && yarn install && yarn build"
   },
   "engine": {
     "node": "v16.13.1",
