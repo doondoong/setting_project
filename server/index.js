@@ -1,9 +1,6 @@
 // 서버 생성1
-const WebSocketServer = require("ws").Server
-const http = require("http")
-const express = require("express")
-const app = express()
-const port = process.env.PORT || 7000
+const server = require('http').createServer();
+
 
 // 몽고 DB
 const mongoose = require('mongoose')
@@ -15,16 +12,6 @@ const cookieParser = require('cookie-parser')
 const {auth} = require('./middleware/auth')
 const path = require('path')
 
-const http = require('http')
-const server = http.createServer(app)
-const io = new WebSocketServer({server: server,
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
-      },
-      path: '/socket.io'
-    })
-
 if(process.env.NODE_ENV === 'production') {
     server.use(express.static("client/build"));
     server.get("/", (req, res) => {
@@ -35,32 +22,17 @@ if(process.env.NODE_ENV === 'production') {
         (path.join(__dirname, '..', 'client', 'src')))
 }
 
-server.listen(port,(err)=>{
-    if(err) {
-        return console.log(err,'server err!!!!');
-    }
-    else {
-        mongoose.connect(config.MONGODB_URL, { useNewUrlParser:true }, (err) => {
-            if(err) {
-                console.log('몽고DB에러')
-            } else {
-                console.log('Connected to database successfully')
-            }
-        })
-    }
-});
-
 // 소켓통신을 위함
 const cors = require('cors')
 server.use(cors())
 
-// const io = require('socket.io')(http, {
-//     cors: {
-//       origin: "*",
-//       methods: ["GET", "POST"]
-//     },
-//     path: '/socket.io'
-//   });
+const io = require('socket.io')(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    },
+    path: '/socket.io'
+  });
 const moment = require('moment')
 
 io.on('connection', (socket) => {
@@ -76,10 +48,6 @@ io.on('connection', (socket) => {
         console.log('연결이 끊어졌습니다.');
     })
 })
-// const wsport = process.env.PORT || 7001
-// http.listen(wsport, ()=> {
-//     console.log('listening on :7001')
-// })
 
 
 // const run = require('./login.js')
@@ -199,3 +167,18 @@ server.get('/api/user/logout', auth, (req,res) => {
     })
 })
 
+const port = process.env.PORT || 7000
+server.listen(port,(err)=>{
+    if(err) {
+        return console.log(err,'server err!!!!');
+    }
+    else {
+        mongoose.connect(config.MONGODB_URL, { useNewUrlParser:true }, (err) => {
+            if(err) {
+                console.log('몽고DB에러')
+            } else {
+                console.log('Connected to database successfully')
+            }
+        })
+    }
+});
