@@ -27,8 +27,8 @@ if(process.env.NODE_ENV === 'production') {
 // // 소켓통신을 위함
 // const http = require('http').Server(server)
 
-// const cors = require('cors')
-// server.use(cors())
+const cors = require('cors')
+server.use(cors())
 // const io = require('socket.io')(http, {
 //     cors: {
 //       origin: "*",
@@ -95,7 +95,9 @@ server.use(cookieParser())
     //         console.log(err,'error')
     //     })
 // })
-
+server.get('/api/hello',(req,res)=>{
+    console.log('안녕')
+})
 
 server.post('/api/user/register', (req,res) => {
     //회원 가입 
