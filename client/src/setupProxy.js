@@ -3,14 +3,13 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
 
-// if(process.env.NODE_ENV === 'production') {
-//   app.use(
-//     createProxyMiddleware('/api',{
-//       target: 'https://chatting-system-no3.herokuapp.com',
-//       changeOrigin: true,
-//     }),
-    
-//   );
+if(process.env.NODE_ENV === 'production') {
+  app.use(
+    createProxyMiddleware('/api',{
+      target: 'https://chatting-system-no3.herokuapp.com/',
+      changeOrigin: true,
+    }),
+  );
 
   // app.use(
   //   createProxyMiddleware('/socket.io', {
@@ -20,7 +19,9 @@ module.exports = function(app) {
   //     logLevel: 'debug',
   //   })
   // )
-// } else {
+
+} else {
+
     app.use(
     createProxyMiddleware('/api',{
       target: 'http://localhost:7000',
@@ -36,5 +37,7 @@ module.exports = function(app) {
   //     logLevel: 'debug',
   //   })
   // )
-// }
+
+}
+
 };
