@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.use(
       '/api',
       createProxyMiddleware({
-          target: 'https://git.heroku.com/chatting-system-no3.git/',
+          target: 'https://chatting-system-no3.herokuapp.com/',
           changeOrigin: true,
       })
   );
