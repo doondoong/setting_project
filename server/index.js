@@ -13,13 +13,12 @@ const {auth} = require('./middleware/auth')
 const path = require('path')
 
 if(process.env.NODE_ENV === 'production') {
-    server.use(express.static
-        (path.join(__dirname, "client/build")));
+    server.use(express.static("client/build"));
     // server.get('*', (req,res) => {
     //     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
     // })
-    server.get("/", (req, res) => {
-        res.sendFile(path.join(__dirname, "client/build", "index.html"));
+    server.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
       });
 }  else {
     server.use(express.static
@@ -175,8 +174,8 @@ server.get('/api/user/logout', auth, (req,res) => {
     })
 })
 
-const PORT = process.env.PORT || 7000
-server.listen(PORT,(err)=>{
+const port = process.env.PORT || 7000
+server.listen(port,(err)=>{
     if(err) {
         return console.log(err,'server err!!!!');
     }
