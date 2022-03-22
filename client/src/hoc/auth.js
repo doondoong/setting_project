@@ -23,6 +23,8 @@ export default function(SpecificComponent, option, adminRoute = null) {
                     //로그인한 유저만 접근가능한 곳이라면 로그인페이지로 보내라
                     if(!!option) {
                         navigate('/login')
+                        // create console.log
+                        console.log('여기인가?')
                     }
                 } else {
                     //로그인 한 상태
