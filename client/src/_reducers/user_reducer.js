@@ -12,13 +12,17 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case LOGIN_USER:
             return { ...state, loginSuccess: action.payload }
+            break;
         case REGISTER_USER:
             return { ...state, register: action.payload }
+            break;
         case AUTH_USER:
             return { ...state, userData: action.payload }
+            break;
         case CHATTING_WINDOW:
             console.log('요로로',action.view)
             return {...state, view: action.view}
+            break;
         default:
             return state;
     }
