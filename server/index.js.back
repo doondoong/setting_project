@@ -22,8 +22,6 @@ if(process.env.NODE_ENV === 'production') {
         (path.join(__dirname, '..', 'client', 'src')))
 }
 
-
-
 // 소켓통신을 위함
 const http = require('http').Server(server)
 

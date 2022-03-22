@@ -17,7 +17,13 @@ const path = require('path')
 
 const http = require('http')
 const server = http.createServer(app)
-const io = new WebSocketServer({server: server})
+const io = new WebSocketServer({server: server,
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+      },
+      path: '/socket.io'
+    })
 
 if(process.env.NODE_ENV === 'production') {
     server.use(express.static("client/build"));
@@ -29,7 +35,20 @@ if(process.env.NODE_ENV === 'production') {
         (path.join(__dirname, '..', 'client', 'src')))
 }
 
-
+server.listen(port,(err)=>{
+    if(err) {
+        return console.log(err,'server err!!!!');
+    }
+    else {
+        mongoose.connect(config.MONGODB_URL, { useNewUrlParser:true }, (err) => {
+            if(err) {
+                console.log('몽고DB에러')
+            } else {
+                console.log('Connected to database successfully')
+            }
+        })
+    }
+});
 
 // 소켓통신을 위함
 const cors = require('cors')
@@ -180,17 +199,3 @@ server.get('/api/user/logout', auth, (req,res) => {
     })
 })
 
-server.listen(port,(err)=>{
-    if(err) {
-        return console.log(err,'server err!!!!');
-    }
-    else {
-        mongoose.connect(config.MONGODB_URL, { useNewUrlParser:true }, (err) => {
-            if(err) {
-                console.log('몽고DB에러')
-            } else {
-                console.log('Connected to database successfully')
-            }
-        })
-    }
-});
